@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-urlpatterns = patterns('blog',
+urlpatterns = patterns('blog.views',
 
-                       url(regex=r'index$', view='views.base', name=u'base'),
-                       url(r'^$', 'views.home', name='home'),
+                       url(regex=r'index$', view='base', name=u'base'),
+                       url(r'^$', 'home', name='home'),
 
 )
