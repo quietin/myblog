@@ -27,7 +27,11 @@ a:hover {
 }
 
 .container {
-    max-width: 1050px;
+    max-width: 1024px;
+}
+.row {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .siderbarBox {
@@ -62,15 +66,17 @@ a:hover {
 }
 
 #content {
-    padding-top: 70px;
+    padding: 50px 0 10px 0;
     /*background-color: #f1f1f1;*/
     background-color: #fafafa;
 
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
 }
+#top-content {
+    padding: 0;
+}
 #header-img {
-    /*height: 200px;*/
-    width: 1020px;
+    /*width: 1050px;*/
     /*overflow: auto;*/
 }
 
@@ -79,7 +85,6 @@ a:hover {
 }
 #desc-col h3, h5 {
     display: inline-block;
+    margin-left: 10px;
 }
-#desc-col h5 {
-    margin-left: 15px;
-}
+
