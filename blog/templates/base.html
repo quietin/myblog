@@ -8,107 +8,95 @@
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/load-progress-bar.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/reset.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/circle.png">
 </head>
 <body>
-<div id="head">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Brand</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-
-
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-
-
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-
-
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-    </nav>
+<div id="progress" class="waiting">
+    <dt></dt>
+    <dd></dd>
 </div>
 
-<div class="container" id="content">
+{% include "nav_bar.html" %}
 
-    <div class="row">
-        <div class="col-lg-12" id="top-content">
-            <div id="desc-col">
-                <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
+<div class="container">
+    <div id="content">
 
-                <div id="header-img">
-                    <img src="{{ STATIC_URL }}img/header.jpg">
+        <div class="row">
+            <div class="col-lg-12" id="top-content">
+                <div id="desc-col">
+                    <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
+
+                    <div id="header-img">
+                        <img src="{{ STATIC_URL }}img/header.jpg">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" id="main">
+            <div class="col-lg-2">
+                123
+            </div>
+            <div class="col-lg-7" id="article">
+                <pre>
+               摩托罗拉发布三款新手机，试图回归主流市场，这又让我想起“铱星计划”（Iridium）。如果说以工匠之心打造完美体系就是“有情怀”，那么上世纪摩托罗拉力推铱星计划，可以说是移动通信领域最具情怀的一次探索。
+
+“铱”是原子序数为77的化学元素。当年摩托罗拉提出自己的“低轨移动卫星通信”计划时，最初的设计是11条轨道，每条轨道上7颗卫星，卫星总数和“铱”的原子数一致。所以即使最后实施时每条轨道上仅用6颗卫星，这一商业计划最终仍被称为“铱星”。
+
+把时钟往前拨二十多年，还原当时的时代背景和应用场景，我们就能理解：摩托罗拉启动铱星计划并非鲁莽地尝试，而是在商务和技术等方面做了精心的准备。
+
+上个世纪90年代，全球移动通信还处在从模拟移动电话向数字移动电话过渡阶段，客户规模迅速增长，但随时随地保持联系的需求不断被客户提出来。
+
+满足网络无缝覆盖，保持不间断通信，按照常规思维模式，有两个解决方案：一是基于公用蜂窝移动通信网络；二是通过卫星通信。前者运营商的投资大，在地面每隔几百米就要建一个基站；后者通信能力有限，客户需要承担比较高的费用。
+
+摩托罗拉推铱星计划可谓瞅准了商机：打造一个比地面通信网络覆盖好，比传统卫星通信成本低的通信网络。这种颠覆性的设计思路，堪比如今的互联网思维！
+
+为了推广铱星，摩托罗拉投资4亿美元，与其他小伙伴一起注册了独立的铱星公司，来负责运营。对铱星公司，无论是人员派驻还是商业合作，摩托罗拉都下了血本。
+
+摩托罗拉对铱星计划信心满满，不仅是自信找准了商机，还源于技术方面的自信。人与卫星的通信状态很难控制，尤其低轨卫星运行速度超快，如何确保通信过程通畅？打开铱星计划的技术方案，无论是星与星之间的通信联络，还是星与地之间的连接切换，大量的技术创新和细节，其中不乏奇思妙想，令人拍案叫绝。
+
+那个时候的摩托罗拉，精英荟萃，财大气粗，用科技和资金把理想变成了现实，1998年11月，时任美国副总统的戈尔第一个用铱星打通了电话。
+
+然而现实却给摩托罗拉开了个大大的玩笑：从铱星计划的正式提出，到铱星公司提出破产保护，前后不到十年；从第一颗铱星发射升空，到脱离轨道自行毁灭，不足四年。铱星投入运营仅半年就终止服务，成了真正的“见光死”。
+
+铱星计划曾被业内奉为高大上的未来之星，对其失败我个人总结主要有三点：
+
+首先，是蜂窝移动通信的大发展，使铱星所面对的市场环境发生了本质变化。曾经以为，运营商不可能在地面铺设几十万个基站来实现蜂窝移动通信的全覆盖。而事实上，移动通信的爆炸性增长被资本市场普遍看好后，在雄厚的资金支持下，运营商近乎疯狂地建网，在铱星具备能力之前，蜂窝移动通信就基本满足了用户需求。同时由于运营商数量多，竞争加剧，客户通信消费的支出也迅速下降，这对铱星来说是雪上加霜：低轨卫星通信的成本可以比传统卫星低，但是无法和蜂窝移动通信相提并论，大规模的投入得不到回报，铱星计划就是这么死的。
+
+其次，也许因为摩托罗拉过于自信，铱星成了一家缺乏伙伴的公司。比如在通信转接方面，铱星与另一家低轨卫星通信网络——全球星（GlobalStar）有本质性区别：铱星是以星与星之间的通信为主，用户的通话上星后就由铱星来转接和处理；而全球星仅负责星地通信，连接建立后与地面的运营商合作，完成接续。再比如在终端、代理渠道等产业链合作方面，铱星也表现得比较强势，门槛过高使众多潜在合作者望而却步，最终成为孤家寡人。
+
+还有一点很重要，就是铱星独立运作的运营模式出了问题。铱星公司虽然独立运作，但董事会成员来自于不同的组织，各怀心腹事，沟通效率低，浪费了宝贵的时间。所谓的“雪崩的时候，每一片雪花都有责任”，如果组织为了和谐而牺牲了效率，企业的活力和灵性消失了，最终的结果可想而知。
+
+无论如何，铱星计划有情怀，实现了“天地无缝覆盖，全球通信一体化”的梦想；摩托罗拉太任性，在上个世纪给我们留下了满满的回忆。希望今天在移动互联网世界里奋斗的我们，也能给后人留下一些有价值的东西。
+                </pre>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebarBox">
+                    <h4>分类</h4>
+                    <ul>
+                        <li><a href="#"><i class="icon-angle-right"></i>大千世界，唯我可用</a></li>
+                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>
+                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>
+
+
+                    </ul>
+                </div>
+                <div class="sidebarBox">
+
+                </div>
+                <div class="sidebarBox">
+
                 </div>
             </div>
         </div>
-
-    </div>
-    <div class="row">
-        <div class="col-lg-2">
-            123
-        </div>
-        <div class="col-lg-7">
-            456
-        </div>
-        <div class="col-lg-3">
-            <div class="sidebarBox">
-                <h4>分类</h4>
-                <ul class="">
-                    <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>
-                    <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>
-                    <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>
+        <div class="row">
+            <footer>
+             <p><i class="icon-home"></i> Copyright © 2015 - Quietin - All rights reserved</p>
 
 
-                </ul>
-            </div>
-            <div class="sidebarBox">
-
-            </div>
-            <div class="sidebarBox">
-
-            </div>
+            </footer>
         </div>
     </div>
 
@@ -117,5 +105,22 @@
 
 <script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+      $({property: 0}).animate({property: 105}, {
+        duration: 4000,
+        step: function() {
+          var _percent = Math.round(this.property);
+          $("#progress").css("width",  _percent+"%");
+          if(_percent == 105) {
+            $("#progress").addClass("done");
+          }
+        },
+        complete: function() {
+          alert("complete");
+        }
+      });
+    });
+</script>
 </body>
 </html>
