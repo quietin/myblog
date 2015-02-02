@@ -1,7 +1,7 @@
 #progress {
     position: fixed;
     z-index: 2147483647;
-    top: 51px;
+    top: 50px;
     left: -6px;
     width: 0;
     height: 2px;

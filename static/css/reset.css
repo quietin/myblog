@@ -53,7 +53,7 @@ footer p {
 }
 
 .navbar-inverse {
-    background-image: linear-gradient(to bottom,#993 0,#996 100%);
+    /*background-image: linear-gradient(to bottom,#993 0,#996 100%);*/
     border-color: #996;
 }
 
@@ -85,14 +85,16 @@ footer p {
     padding-left: 8px;
 }
 
-.sidebarBox li:hover {
+.sidebarBox > ul > li:hover {
     background-color: #fbf4f4;
+    color: #000;
     /*background-color: #ddd;*/
 }
 
 .sidebarBox li a {
     font-weight: bold;
     font-size: 12px;
+    display: block;
 }
 
 .sidebarBox li [class^="icon-"], .sidebarBox li [class*=" icon-"] {
