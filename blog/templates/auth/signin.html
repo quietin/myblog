@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block css_reset %}
+{% endblock %}
+
+{% block css %}
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        body, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+            background-size: cover;
+            background: url("{{ STATIC_URL }}img/paint-gun.jpg") repeat fixed center;
+        }
+
+        div.input-group {
+            margin-bottom: 10px;
+        }
+
+        span.input-group-addon {
+            width: 40px;
+        }
+
+        span > i[class^="icon-"] {
+            text-align: center;
+        }
+
+        #page {
+            margin-top: -80px;
+            position: absolute;
+            top: 30%;
+            left: 0;
+            width: 100%;
+        }
+
+        #loginBox {
+            opacity: 1;
+            width: 200px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        #submitBtn {
+            display: none;
+        }
+
+
+    </style>
+{% endblock %}
+
+{% block nav %}
+
+{% endblock %}
+
+{% block container %}
+    <div id="page">
+        <div id="loginBox">
+            <form method="post">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-user"></i></span>
+                    <input type="text" name="user" class="form-control" placeholder="Username"
+                           aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-key"></i></span>
+                    <input type="password" name="passwd" class="form-control" placeholder="Password"
+                           aria-describedby="basic-addon1">
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="remember"> Check me out
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-default" id="submitBtn">Submit</button>
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}

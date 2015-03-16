@@ -10,77 +10,89 @@
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
 
     {% block css_file %}
+
     {% endblock %}
+
+    {% block css_reset %}
     <link href="{{ STATIC_URL }}css/reset.css" rel="stylesheet">
+    {% endblock %}
+
     <link rel="shortcut icon" href="{{ STATIC_URL }}img/circle.png">
+
     {% block css %}
 
     {% endblock %}
 </head>
 <body>
 
+{% block nav %}
+    {% include "nav_bar.html" %}
+{% endblock %}
 
-{% include "nav_bar.html" %}
+{% block container %}
+    <div class="container">
+        <div id="content">
 
-<div class="container">
-    <div id="content">
+            <div class="row">
+                <div class="col-lg-12" id="top-content">
+                    <div id="desc-col">
+                        <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
 
-        <div class="row">
-            <div class="col-lg-12" id="top-content">
-                <div id="desc-col">
-                    <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
-
-                    <div id="header-img">
-                        <img src="{{ STATIC_URL }}img/header.jpg">
+                        <div id="header-img">
+                            <img src="{{ STATIC_URL }}img/header.jpg">
+                        </div>
                     </div>
                 </div>
+
             </div>
+            <div class="row" id="main">
+                {% block main_content %}
+                    <div id="article">
+                        {% block article %}
 
+                        {% endblock %}
+
+                    </div>
+                    {#            <div id="sidebar">#}
+                    {#                <div class="sidebarBox">#}
+                    {#                    <h4>分类</h4>#}
+                    {#                    <ul>#}
+                    {#                        <li><a href="#"><i class="icon-angle-right"></i>大千世界，唯我可用</a></li>#}
+                    {#                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>#}
+                    {#                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>#}
+                    {##}
+                    {##}
+                    {#                    </ul>#}
+                    {#                </div>#}
+                    {#                <div class="sidebarBox">#}
+                    {##}
+                    {#                </div>#}
+                    {#                <div class="sidebarBox">#}
+                    {##}
+                    {#                </div>#}
+                    {#            </div>#}
+                {% endblock %}
+            </div>
+            <div class="row">
+                <footer>
+                    <p><i class="icon-home"></i> Copyright © 2015 - Quietin - All rights reserved</p>
+
+
+                </footer>
+            </div>
         </div>
-        <div class="row" id="main">
-            {% block main_content %}
-                <div id="article">
-                    {% block article %}
 
-                    {% endblock %}
-
-                </div>
-                {#            <div id="sidebar">#}
-                {#                <div class="sidebarBox">#}
-                {#                    <h4>分类</h4>#}
-                {#                    <ul>#}
-                {#                        <li><a href="#"><i class="icon-angle-right"></i>大千世界，唯我可用</a></li>#}
-                {#                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>#}
-                {#                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>#}
-                {##}
-                {##}
-                {#                    </ul>#}
-                {#                </div>#}
-                {#                <div class="sidebarBox">#}
-                {##}
-                {#                </div>#}
-                {#                <div class="sidebarBox">#}
-                {##}
-                {#                </div>#}
-                {#            </div>#}
-            {% endblock %}
-        </div>
-        <div class="row">
-            <footer>
-                <p><i class="icon-home"></i> Copyright © 2015 - Quietin - All rights reserved</p>
-
-
-            </footer>
-        </div>
     </div>
-
-</div>
+{% endblock %}
 
 
 <script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
 {% block js_file %}
+
 {% endblock %}
+
 <script type="text/javascript">
     $(document).ready(function () {
         $("#searchBox")
@@ -90,7 +102,7 @@
                         this.bg_color = $(this).css('background-color');
                     }
                     $(this).css('background-color', '#fff').animate({width: 300}, 'fast');
-{#                    $(this).animate({width: 300, backgroundColor: 'green'}, 'slow');#}
+                    {#                    $(this).animate({width: 300, backgroundColor: 'green'}, 'slow');#}
                 })
                 .bind('blur', function () {
                     if ($.trim($(this).val()) === '') {
@@ -102,6 +114,7 @@
 
 </script>
 {% block js %}
+
 {% endblock %}
 </body>
 </html>

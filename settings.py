@@ -1,3 +1,4 @@
+# coding: utf8
 """
 Django settings for myblog project.
 
@@ -74,7 +75,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -83,6 +84,20 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'zh-cn'
+
+LOCALES = (
+    # English
+    ('en', u'English'),
+    # Simplified Chinese
+    ('zh-cn', u'简体中文'),
+    # Traditional Chinese
+    ('zh-tw', u'繁體中文'),
+    # Japanese
+    ('ja', u'日本語'),
+)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -118,3 +133,6 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, "blog"),
 )
 
+LOGIN_URL = '/signin/'
+
+LOGOUT_URL = '/signout/'
