@@ -22,6 +22,7 @@
 {% block main_content %}
     <div id="wrap">
         <form method="post" action=".">
+            {% csrf_token %}
             <div class="form-group">
                 <input class="form-control" name="title" type="text" placeholder="Title?">
             </div>

@@ -24,6 +24,9 @@ def display_article(request, essay_pk):
         # return HttpResponse(request)
 
 
+@login_required
 def edit_new_article(request):
     if request.method == 'GET':
         return render(request, 'edit_page.html')
+    elif request.method == 'POST':
+        param_list = ['title', 'content', 'publish', 'author', 'category', 'tags', ]

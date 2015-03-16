@@ -90,12 +90,12 @@
                         this.bg_color = $(this).css('background-color');
                     }
                     $(this).css('background-color', '#fff').animate({width: 300}, 'fast');
+{#                    $(this).animate({width: 300, backgroundColor: 'green'}, 'slow');#}
                 })
                 .bind('blur', function () {
-                    if ($.trim($(this).val() !== '')) {
-                        $(this).animate({width: this.init_width}).css('background-color', this.bg_color);
-                    } else {
+                    if ($.trim($(this).val()) === '') {
                         $(this).val('');
+                        $(this).animate({width: this.init_width}).css('background-color', this.bg_color);
                     }
                 });
     })
