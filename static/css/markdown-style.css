@@ -14,7 +14,7 @@ body {
     padding: 1em;
     margin: auto;
     /*max-width: 42em;*/
-    background: #fefefe;
+    /*background: #fefefe;*/
 }
 
 a {
@@ -206,7 +206,8 @@ td {
 
 @media only screen and (min-width: 768px) {
     body {
-        font-size: 16px;
+        /*font-size: 16px;*/
+        font-size: 14px;
     }
 }
 

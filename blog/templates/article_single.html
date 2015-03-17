@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
-{% block css_file %}
-    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+{#{% block css_file %}#}
+{#    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">#}
     {#    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-markdown.min.css" rel="stylesheet">#}
+{##}
+{#{% endblock %}#}
 
-{% endblock %}
 
-
-{% block css %}
-    <link href="{{ STATIC_URL }}css/markdown-style.css" rel="stylesheet">
-    <style type="text/css">
-        #article-inner {
-            display: none;
-            font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
-
-        }
-
-        #article-inner h4, h5, h6 {
-            font-weight: normal;
-        }
-
-    </style>
-{% endblock %}
+{#{% block css_reset %}#}
+{#    <link href="{{ STATIC_URL }}css/reset.css" rel="stylesheet">#}
+{#    <link href="{{ STATIC_URL }}css/markdown-style.css" rel="stylesheet">#}
+{#    <style type="text/css">#}
+{#        #article-inner {#}
+{#            display: none;#}
+{#            font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;#}
+{#        }#}
+{##}
+{#        #article-inner h4, h5, h6 {#}
+{#            font-weight: normal;#}
+{#        }#}
+{##}
+{#    </style>#}
+{#{% endblock %}#}
 {% block article %}
     <div id="article-inner">
-        {{ essay.content }}
+        {{ essay.content|safe }}
     </div>
 {% endblock %}
 

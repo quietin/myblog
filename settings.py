@@ -133,6 +133,8 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, "blog"),
 )
 
+LOGIN_REDIRECT_URL = '/'
+
 LOGIN_URL = '/signin/'
 
 LOGOUT_URL = '/signout/'
