@@ -48,8 +48,8 @@ a:hover {
     text-decoration: none;
 }
 
-footer p {
-    margin-left: 10px;
+footer > p {
+    margin: 0 0 10px 10px;
 }
 
 .navbar-inverse {
@@ -128,7 +128,7 @@ a.navbar-brand {
 }
 
 #desc-col {
-    margin: 20px 0;
+    margin: 10px 0 20px;
 }
 
 #desc-col h3, h5 {
@@ -143,8 +143,8 @@ a.navbar-brand {
     width: 750px;
     margin: 0 8px;
     float: left;
-    font-size: 14px;
-    line-height: 22px;
+    /*font-size: 14px;*/
+    /*line-height: 22px;*/
 }
 
 #sidebar {

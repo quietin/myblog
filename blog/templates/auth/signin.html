@@ -66,22 +66,18 @@
     <div id="page">
         <div id="loginBox">
             <form method="post">
+                {% csrf_token %}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon-user"></i></span>
-                    <input type="text" name="user" class="form-control" placeholder="Username"
+                    <input type="text" name="username" class="form-control"
                            aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon-key"></i></span>
-                    <input type="password" name="passwd" class="form-control" placeholder="Password"
-                           aria-describedby="basic-addon1">
+                    <input type="password" name="password" class="form-control"
+                           aria-describedby="basic-addon2">
                 </div>
 
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="remember"> Check me out
-                    </label>
-                </div>
                 <button type="submit" class="btn btn-default" id="submitBtn">Submit</button>
             </form>
         </div>

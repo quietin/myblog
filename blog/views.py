@@ -1,8 +1,11 @@
 # coding: utf8
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
 from models import Essay
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 
 
 def home(request):
@@ -29,4 +32,12 @@ def edit_new_article(request):
     if request.method == 'GET':
         return render(request, 'edit_page.html')
     elif request.method == 'POST':
-        param_list = ['title', 'content', 'publish', 'author', 'category', 'tags', ]
+        # param_list = ['title', 'content', 'publish', 'author', 'category', 'tags', ]
+        new_essay = Essay()
+        for k, v in request.POST.iteritems():
+            if hasattr(new_essay, k):
+                setattr(new_essay, k, v)
+        new_essay.save()
+        return HttpResponseRedirect(reverse('display_article', args=(new_essay.id,)))
+    # else:
+    #     return HttpResponseRedirect(reverse('display_article'))
