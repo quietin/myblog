@@ -6,8 +6,8 @@ from models import Essay
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from lib import get_md_doc_from_raw
-
+from lib import get_md_doc_from_raw, get_md_doc_of_highlight
+import re
 
 
 def home(request):
@@ -23,11 +23,25 @@ def display_article(request, essay_pk):
     try:
         essay = Essay.objects.get(pk=essay_pk)
         essay.content = get_md_doc_from_raw(text=essay.content)
+
+        print essay.content
+        return render(request, 'article_single.html', {'essay': essay})
+        # return render(request, 'test_article.html', {'essay': essay})
+    except Essay.DoesNotExist:
+        pass
+        # return HttpResponse(request)
+
+
+def display_article_by_gfm(request, essay_pk):
+    try:
+        essay = Essay.objects.get(pk=essay_pk)
+        essay.content = get_md_doc_from_raw(text=essay.content)
+        # print essay.content
+        # print essay.content
         # return render(request, 'article_single.html', {'essay': essay})
         return render(request, 'test_article.html', {'essay': essay})
     except Essay.DoesNotExist:
         pass
-        # return HttpResponse(request)
 
 
 @login_required

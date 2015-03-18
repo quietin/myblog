@@ -1,50 +1,30 @@
-{% extends 'base.html' %}
-{#{% block css_file %}#}
-{#    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">#}
-    {#    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-markdown.min.css" rel="stylesheet">#}
-{##}
-{#{% endblock %}#}
+{% extends "base_of_article.html" %}
 
-
-{#{% block css_reset %}#}
-{#    <link href="{{ STATIC_URL }}css/reset.css" rel="stylesheet">#}
-{#    <link href="{{ STATIC_URL }}css/markdown-style.css" rel="stylesheet">#}
-{#    <style type="text/css">#}
-{#        #article-inner {#}
-{#            display: none;#}
-{#            font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;#}
-{#        }#}
-{##}
-{#        #article-inner h4, h5, h6 {#}
-{#            font-weight: normal;#}
-{#        }#}
-{##}
-{#    </style>#}
-{#{% endblock %}#}
 {% block article %}
-    <div id="article-inner">
-        {{ essay.content|safe }}
-    </div>
+    <div id="article" class="markdown-body">
+        {{ essay.content }}
+
+        {% block article_content %}
+            {#    {{ essay.content|safe }}#}
+            <pre><code class="lang-javascript">$(<span class="keyword">function</span>(){
+                $(<span class="string">'div'</span>).html(<span class="string">'I am a div.'</span>);
+                });</code></pre>
+            </div>
+        {% endblock %}
 {% endblock %}
 
-{% block js_file %}
-    <script src="{{ STATIC_URL }}bootstrap/js/markdown.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}bootstrap/js/to-markdown.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-markdown.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-markdown.zh.js" type="text/javascript"></script>
-{% endblock %}
+
 
 {% block js %}
-
-    <script type="application/javascript">
+    <script>
         $(document).ready(function () {
-            var articleDiv = $("div#article-inner");
-            var md_content = articleDiv.text();
-            console.log(md_content);
-            var html_content = markdown.toHTML(md_content);
-            articleDiv.html(html_content);
-            articleDiv.show();
+            marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true});
+            document.getElementById('article').innerHTML = marked('\n' + $("#article").text());
+        });
 
-        })
+        hljs.initHighlightingOnLoad();
+
     </script>
 {% endblock %}

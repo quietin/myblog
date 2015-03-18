@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block css_file %}
+    <link href="{{ STATIC_URL }}css/github.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/github-style.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block article %}
+    <div id="article" class="markdown-body">
+        {% block article_content %}
+
+
+        {% endblock %}
+
+    </div>
+
+{% endblock %}
+
+{% block js_file %}
+    <script src="{{ STATIC_URL }}js/highlight.pack.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/marked.js" type="text/javascript"></script>
+{#    <script>#}
+{##}
+{#    hljs.configure({#}
+{#  tabReplace: '    ', // 4 spaces#}
+{#  classPrefix: 'lang-'     // don't append class prefix#}
+{#                      // … other options aren't changed#}
+{##}
+{#    hljs.initHighlighting();#}
+
+{#    </script>#}
+{% endblock %}

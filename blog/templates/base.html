@@ -5,33 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>quietin的博客</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/circle.png">
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 
-{#    <link href="{{ STATIC_URL }}css/github-markdown.css" rel="stylesheet">#}
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
-
-    {% block css_file %}
-
-    {% endblock %}
 
     {% block css_reset %}
         <link href="{{ STATIC_URL }}css/reset.css" rel="stylesheet">
     {% endblock %}
 
-    <link href="{{ STATIC_URL }}css/github-markdown.css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ STATIC_URL }}img/circle.png">
+    {% block css_file %}
+
+    {% endblock %}
+
 
     {% block css %}
-        <style>
-            .markdown-body {
-                min-width: 200px;
-                max-width: 790px;
-                margin: 0 auto;
-                padding: 30px;
-                float: left;
-            }
-        </style>
 
     {% endblock %}
 </head>
@@ -59,12 +48,16 @@
             </div>
             <div class="row" id="main">
                 {% block main_content %}
-                    <div id="article" class="markdown-body">
+
                         {% block article %}
+                            <div id="article" >
+                            </div>
 
                         {% endblock %}
 
-                    </div>
+                        {% block sidebar %}
+
+                            {% endblock %}
                     {#            <div id="sidebar">#}
                     {#                <div class="sidebarBox">#}
                     {#                    <h4>分类</h4>#}
@@ -125,8 +118,10 @@
     })
 
 </script>
+
 {% block js %}
 
 {% endblock %}
+
 </body>
 </html>
