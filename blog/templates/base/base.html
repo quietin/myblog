@@ -27,7 +27,7 @@
 <body>
 
 {% block nav %}
-    {% include "nav_bar.html" %}
+    {% include "base/nav_bar.html" %}
 {% endblock %}
 
 {% block container %}
@@ -40,7 +40,7 @@
                         <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
 
                         <div id="header-img">
-                            <img src="{{ STATIC_URL }}img/header.jpg">
+                            <img class="desaturate" src="{{ STATIC_URL }}img/header.jpg">
                         </div>
                     </div>
                 </div>
@@ -49,15 +49,19 @@
             <div class="row" id="main">
                 {% block main_content %}
 
-                        {% block article %}
-                            <div id="article" >
-                            </div>
-
-                        {% endblock %}
-
-                        {% block sidebar %}
+                    {% block article %}
+                        <div id="article">
+                            {% block article_content %}
 
                             {% endblock %}
+
+                        </div>
+
+                    {% endblock %}
+
+                    {% block sidebar %}
+
+                    {% endblock %}
                     {#            <div id="sidebar">#}
                     {#                <div class="sidebarBox">#}
                     {#                    <h4>分类</h4>#}
@@ -99,6 +103,45 @@
 {% endblock %}
 
 <script type="text/javascript">
+    function grayscale(src) {
+        var supportsCanvas = !!document.createElement('canvas').getContext;
+        if (supportsCanvas) {
+            var canvas = document.createElement('canvas'),
+                    context = canvas.getContext('2d'),
+                    imageData, px, length, i = 0, gray,
+                    img = new Image();
+
+            img.src = src;
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0);
+
+            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            px = imageData.data;
+            length = px.length;
+
+            for (; i < length; i += 4) {
+{#                gray = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11;#}
+                gray = px[i] * .5 + px[i + 1] * .55 + px[i + 2] * .1;
+                px[i] = px[i + 1] = px[i + 2] = gray;
+            }
+
+            context.putImageData(imageData, 0, 0);
+            return canvas.toDataURL();
+        } else {
+            return src;
+        }
+    }
+    $(window).load(function () {
+        $('.desaturate').each(function () {
+            $(this).wrap('<div style="display:inline-block;width:' + this.width + 'px;height:' + this.height + 'px;">').clone().addClass('gotcolors').css({
+                'position': 'absolute',
+                'opacity': 0
+            }).insertBefore(this);
+            this.src = grayscale(this.src);
+        }).animate({opacity: 1}, 500);
+    });
+
     $(document).ready(function () {
         $("#searchBox")
                 .bind('focus', function () {
@@ -107,7 +150,6 @@
                         this.bg_color = $(this).css('background-color');
                     }
                     $(this).css('background-color', '#fff').animate({width: 300}, 'fast');
-                    {#                    $(this).animate({width: 300, backgroundColor: 'green'}, 'slow');#}
                 })
                 .bind('blur', function () {
                     if ($.trim($(this).val()) === '') {
@@ -115,6 +157,15 @@
                         $(this).animate({width: this.init_width}).css('background-color', this.bg_color);
                     }
                 });
+
+        $("#header-img").hover(
+                function () {
+                    $(this).find('.gotcolors').stop().animate({opacity: 1}, 200);
+                },
+                function () {
+                    $(this).find('.gotcolors').stop().animate({opacity: 0}, 500);
+                }
+        );
     })
 
 </script>

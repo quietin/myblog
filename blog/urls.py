@@ -5,9 +5,12 @@ urlpatterns = patterns('blog.views',
 
                        url(r'^index$', view='base', name='base'),
                        url(r'^$', view='home', name='home'),
-                       url('^articles/(\d+)$', view='display_article', name='display_article'),
-                       url('^articles/gfm/(\d+)$', view='display_article_by_gfm', name='display_article_of_gfm'),
+                       url(r'^article/list$', view='display_all_articles', name='display_all_articles'),
+                       url('^article/(\d+)$', view='display_article', name='display_article'),
+                       url('^article/gfm/(\d+)$', view='display_article_by_gfm', name='display_article_of_gfm'),
 
+                       url('^article/new$', view='make_new_article_fake', name='make_new_ids'),
+                       url('^article/new/(\d+)', view='make_new_article', name='make_new_article'),
                        url('^edit$', view='edit_new_article', name='edit_new_article'),
 
 )

@@ -34,7 +34,7 @@ def get_raw_from_md_doc(params):
         print e
 
 
-def get_md_doc_of_highlight(text, mode='gfm'):
+def get_md_doc_from_marked(text, mode='gfm'):
     try:
         params = {
             'text': text,
@@ -64,13 +64,13 @@ if __name__ == '__main__':
     # print x
 
     # a = get_md_doc_of_highlight(text='I am using __markdown__.')
-    b = get_md_doc_from_raw(text="""```html
-    <DOCTYPE html>
-    <html>
-    </html>
-    ```""")
-    print b
-    a = get_md_doc_of_highlight(text="""```html
+    # b = get_md_doc_from_raw(text="""```html
+    # <DOCTYPE html>
+    # <html>
+    # </html>
+    # ```""")
+    # print b
+    a = get_md_doc_from_marked(text="""```html
     <DOCTYPE html>
     <html>
     </html>

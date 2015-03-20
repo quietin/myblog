@@ -47,9 +47,9 @@ marked.setOptions({
   //    callback(err, result.toString());
   //  });
   //}
-    highlight: function (code) {
-    return require('highlight.js').highlightAuto(code).value;
-  }
+  //  highlight: function (code) {
+  //  return require('highlight.js').highlightAuto(code).value;
+  //}
 });
 
 http.createServer(function(req, res){

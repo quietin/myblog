@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Essay(models.Model):
+class Article(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(default='', blank=False)
     author = models.CharField(max_length=128)
@@ -11,5 +11,5 @@ class Essay(models.Model):
     is_commented = models.BooleanField(default=False, verbose_name=u'是否被评论')
     is_reshipped = models.BooleanField(default=False, verbose_name=u'是否为转载')
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)

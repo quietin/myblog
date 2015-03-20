@@ -189,3 +189,14 @@ a.navbar-brand {
 #main h4 h5 h6 {
     font-weight: bold;
 }
+
+/*img.desaturate{*/
+    /*filter: grayscale(75%); *//* Current draft standard */
+    /*-webkit-filter: grayscale(75%); *//* New WebKit */
+    /*-moz-filter: grayscale(75%);*/
+    /*-ms-filter: grayscale(75%); */
+    /*-o-filter: grayscale(75%); *//* Not yet supported in Gecko, Opera or IE *//* */
+    /*filter: url(resources.svg#desaturate); *//* Gecko */
+    /*filter: gray; *//* IE */
+    /*-webkit-filter: grayscale(0.75); *//* Old WebKit */
+/*}*/
