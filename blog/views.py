@@ -6,7 +6,7 @@ from models import Article
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from lib import get_md_doc_from_raw, get_md_doc_from_marked
+from lib import get_md_doc_from_raw, get_md_doc_from_marked, utc_to_local
 import re
 
 
@@ -46,7 +46,7 @@ def make_new_article(request, new_id):
 def display_all_articles(request):
     articles = Article.objects.all()
     for article in articles:
-        setattr(article, 'created_at', article.created_at.strftime("%Y.%m.%d  %H:%M"))
+        setattr(article, 'created_at', utc_to_local(article.created_at).strftime("%Y.%m.%d  %H:%M"))
     return render(request, 'article/article_list.html', {'articles': articles})
 
 

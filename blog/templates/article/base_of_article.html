@@ -7,6 +7,13 @@
 
 {% endblock %}
 
+{% block css %}
+    <style type="text/css">
+        .markdown-body {
+            display: none;
+        }
+    </style>
+{% endblock %}
 
 {% block article %}
     <div id="article" class="markdown-body">
@@ -23,8 +30,10 @@
     <script src="{{ STATIC_URL }}js/marked.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            var md_content = $.trim($("#article").text());
+            var article = $("#article");
+            var md_content = $.trim(article.text());
             document.getElementById('article').innerHTML = marked(md_content);
+            article.show();
             hljs.initHighlightingOnLoad();
         });
     </script>
