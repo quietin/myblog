@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>quietin的博客</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/circle.png">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+
+    {% block css_reset %}
+        <link href="{{ STATIC_URL }}css/reset.css" rel="stylesheet">
+    {% endblock %}
+
+    {% block css_file %}
+
+    {% endblock %}
+
+
+    {% block css %}
+
+    {% endblock %}
+</head>
+<body>
+
+{% block nav %}
+    {% include "base/nav_bar.html" %}
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div id="content">
+
+            <div class="row">
+                <div class="col-lg-12" id="top-content">
+                    <div id="desc-col">
+                        <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
+
+                        <div id="header-img">
+                            <img class="desaturate" src="{{ STATIC_URL }}img/header.jpg">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" id="main">
+                {% block main_content %}
+
+                    {% block article %}
+                        <div id="article">
+                            {% block article_content %}
+
+                            {% endblock %}
+
+                        </div>
+
+                    {% endblock %}
+
+                    {% block sidebar %}
+
+                    {% endblock %}
+                    {#            <div id="sidebar">#}
+                    {#                <div class="sidebarBox">#}
+                    {#                    <h4>分类</h4>#}
+                    {#                    <ul>#}
+                    {#                        <li><a href="#"><i class="icon-angle-right"></i>大千世界，唯我可用</a></li>#}
+                    {#                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>#}
+                    {#                        <li><a href="#"><i class="icon-angle-right"></i>girl</a></li>#}
+                    {##}
+                    {##}
+                    {#                    </ul>#}
+                    {#                </div>#}
+                    {#                <div class="sidebarBox">#}
+                    {##}
+                    {#                </div>#}
+                    {#                <div class="sidebarBox">#}
+                    {##}
+                    {#                </div>#}
+                    {#            </div>#}
+                {% endblock %}
+            </div>
+            <div class="row">
+                <footer>
+                    <p><i class="icon-home"></i> Copyright © 2015 - Quietin - All rights reserved</p>
+
+
+                </footer>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+<script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+{% block js_file %}
+
+{% endblock %}
+
+<script type="text/javascript">
+    function grayscale(src) {
+        var supportsCanvas = !!document.createElement('canvas').getContext;
+        if (supportsCanvas) {
+            var canvas = document.createElement('canvas'),
+                    context = canvas.getContext('2d'),
+                    imageData, px, length, i = 0, gray,
+                    img = new Image();
+
+            img.src = src;
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0);
+
+            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            px = imageData.data;
+            length = px.length;
+
+            for (; i < length; i += 4) {
+                {#                gray = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11;#}
+                gray = px[i] * .5 + px[i + 1] * .55 + px[i + 2] * .1;
+                px[i] = px[i + 1] = px[i + 2] = gray;
+            }
+
+            context.putImageData(imageData, 0, 0);
+            return canvas.toDataURL();
+        } else {
+            return src;
+        }
+    }
+    $(window).load(function () {
+        $('.desaturate').each(function () {
+            $(this).wrap('<div style="display:inline-block;width:' + this.parentNode.offsetWidth + 'px;height:' + this.parentNode.offsetHeight + 'px;">')
+                    .clone().addClass('gotcolors').css({ 'position': 'absolute','opacity': 0}).insertBefore(this);
+            this.src = grayscale(this.src);
+        }).animate({opacity: 1}, 500);
+    });
+
+    $(document).ready(function () {
+        $("#searchBox")
+                .bind('focus', function () {
+                    if (!this.hasOwnProperty('init_width')) {
+                        this.init_width = $(this).css('width');
+                        this.bg_color = $(this).css('background-color');
+                    }
+                    $(this).css('background-color', '#fff').animate({width: 300}, 'fast');
+                })
+                .bind('blur', function () {
+                    if ($.trim($(this).val()) === '') {
+                        $(this).val('');
+                        $(this).animate({width: this.init_width}).css('background-color', this.bg_color);
+                    }
+                });
+
+        $("#header-img").hover(
+                function () {
+                    $(this).find('.gotcolors').stop().animate({opacity: 1}, 200);
+                },
+                function () {
+                    $(this).find('.gotcolors').stop().animate({opacity: 0}, 500);
+                }
+        );
+    })
+
+</script>
+
+{% block js %}
+
+{% endblock %}
+
+</body>
+</html>
