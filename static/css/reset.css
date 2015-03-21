@@ -190,6 +190,15 @@ a.navbar-brand {
     font-weight: bold;
 }
 
+#header-img > div {
+    width: 100%;
+}
+
+#header-img img {
+    overflow-x: hidden;
+    margin: 0 auto;
+    width: 100%;
+}
 /*img.desaturate{*/
     /*filter: grayscale(75%); *//* Current draft standard */
     /*-webkit-filter: grayscale(75%); *//* New WebKit */

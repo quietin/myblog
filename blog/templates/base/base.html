@@ -121,7 +121,7 @@
             length = px.length;
 
             for (; i < length; i += 4) {
-{#                gray = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11;#}
+                {#                gray = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11;#}
                 gray = px[i] * .5 + px[i + 1] * .55 + px[i + 2] * .1;
                 px[i] = px[i + 1] = px[i + 2] = gray;
             }
@@ -134,10 +134,8 @@
     }
     $(window).load(function () {
         $('.desaturate').each(function () {
-            $(this).wrap('<div style="display:inline-block;width:' + this.width + 'px;height:' + this.height + 'px;">').clone().addClass('gotcolors').css({
-                'position': 'absolute',
-                'opacity': 0
-            }).insertBefore(this);
+            $(this).wrap('<div style="display:inline-block;width:' + this.parentNode.offsetWidth + 'px;height:' + this.parentNode.offsetHeight + 'px;">')
+                    .clone().addClass('gotcolors').css({ 'position': 'absolute','opacity': 0}).insertBefore(this);
             this.src = grayscale(this.src);
         }).animate({opacity: 1}, 500);
     });
