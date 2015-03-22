@@ -15,13 +15,42 @@
             margin: 5px 10px;
         }
 
+        .piece {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .piece .alert-info {
+            display: inline-block;
+            margin: 0;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .piece i {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .piece select {
+            display: inline-block;
+            width: auto;
+        }
+
+        .icon-func {
+            cursor: pointer;
+        }
+
+        #add_cate_block {
+            display: none;
+        }
 
     </style>
 {% endblock %}
 
 {% block main_content %}
     <div id="wrap">
-        <form method="post" action="{% url "edit_new_article" %}">
+        <form method="post" action="{% url "make_new_article" new_id %}">
             {% csrf_token %}
             <div class="form-group">
                 <input class="form-control" name="title" type="text" placeholder="Title?">
@@ -91,14 +120,40 @@ Enjoy!</textarea>
                 <div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span
                         class="glyphicon glyphicon-fullscreen"></span></a></div>
             </div>
-            <label class="checkbox">
-                <input name="publish" type="checkbox"> Publish
-            </label>
+            <div id="editor_box">
+                {#                <div class="form-group">#}
+                <label for="cate_id"></label>
+                <input class="form-control" id="cate_id" name="cate_id" type="hidden">
+
+                <div class="piece"><span class="">目录分类:</span>{% if not cates %}
+                {% else %}
+                    <select class="form-control" id="cate_select">
+                        {% for cate in cates %}
+                            <option value="{{ cate.id }}">{{ cate.title }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+                    <i class="icon-plus icon-func" id="add_cate" title="添加分类"></i>
+
+                    <div id="add_cate_block">
+                        <label for="add_category"></label>
+                        <input class="add_cate_input" name="add_category" id="add_category" title="确定"><i
+                            class="icon-ok icon-func" id="post_cate"></i>
+                    </div>
+
+                </div>
+                {#                </div>#}
+                <label class="checkbox">
+                    <input name="publish" type="checkbox"> Publish
+                </label>
+            </div>
             <hr>
             <button type="submit" class="btn">Submit</button>
         </form>
 
     </div>
+
+
 {% endblock %}
 
 
@@ -112,10 +167,80 @@ Enjoy!</textarea>
 {% block js %}
     <script type="application/javascript">
         $(document).ready(function () {
-            $("#contentEdit").markdown({iconlibrary: 'glyph', language: 'zh', height: 500, resize: 'vertical', savable: true});
+            $("#contentEdit").markdown({
+                iconlibrary: 'glyph',
+                language: 'zh',
+                height: 500,
+                resize: 'vertical',
+                savable: true
+            });
 
             //scroll to the bottom for the easy edit
-            $(window).scrollTop($(document).height()-$(window).height());
+            $(window).scrollTop($(document).height() - $(window).height());
+
+
+            var add_cate_btn = $("#add_cate");
+            var post_cate_btn = $("#post_cate");
+            var new_cate_input = $("#add_category");
+            var add_cate_div = $("#add_cate_block");
+            add_cate_btn.bind('click', function () {
+                add_cate_div.css('display', 'inline-block');
+                $(this).hide();
+            });
+
+            post_cate_btn.bind('click', function () {
+                if ($.trim(new_cate_input.val()) === '') {
+                    alert('目录名不可为空');
+                    return false;
+                }
+                var show_mes = function (mes) {
+                    this.children('option:last').prop('selected', true).end()
+                            .tooltip({'title': mes, 'trigger': 'manual'}).tooltip('show');
+                    setTimeout(function () {
+                        this.tooltip('hide').tooltip('destroy');
+                    }, 1200);
+                };
+                $.ajax({
+                    type: 'post',
+                    url: "{% url "add_new_category" %}",
+                    dataType: 'json',
+                    data: {
+                        "add_new_cate": $.trim(new_cate_input.val())
+                    },
+                    success: function (res) {
+                        var cate_sel = $("#cate_select");
+                        if (res.status === 'success') {
+                            var option_data = '<option value=' + res.data.id + '>' + res.data.title + '</option';
+                            if (cate_sel.length === 0) {
+                                $('<select class="form-control" id="cate_select">')
+                                        .append(option_data)
+                                        .insertBefore(add_cate_btn);
+                                cate_sel = $("#cate_select");  // 必须重新绑定DOM
+                            } else {
+                                cate_sel.append(option_data);
+                            }
+                            show_mes.call(cate_sel, 'add success!');
+                            new_cate_input.val('');
+                            add_cate_div.hide();
+                            add_cate_btn.show();
+                        } else if (res.status === 'error') {
+                            show_mes.call(cate_sel, res.mes);
+                        }
+                    }
+                })
+            });
+
+            {#            $("#add_cate").bind('click', function () {#}
+            {#                var target = $("#category");#}
+            {#                var m_left = (target.width() / 2).toString();#}
+            {#                var m_top = (target.width() / 2).toString();#}
+            {#                console.log(m_left + '  ' + m_top);#}
+            {#                target#}
+            {#                        .css({'margin-left': "-" + m_left + "px", 'margin-top': "-" + m_top + "px"})#}
+            {#                        .show();#}
+            {#            })#}
+
+
         })
 
     </script>

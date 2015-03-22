@@ -7,7 +7,7 @@
     <title>quietin的博客</title>
     <link rel="shortcut icon" href="{{ STATIC_URL }}img/circle.png">
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    {#    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">#}
 
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
 
@@ -135,7 +135,7 @@
     $(window).load(function () {
         $('.desaturate').each(function () {
             $(this).wrap('<div style="display:inline-block;width:' + this.parentNode.offsetWidth + 'px;height:' + this.parentNode.offsetHeight + 'px;">')
-                    .clone().addClass('gotcolors').css({ 'position': 'absolute','opacity': 0}).insertBefore(this);
+                    .clone().addClass('gotcolors').css({'position': 'absolute', 'opacity': 0}).insertBefore(this);
             this.src = grayscale(this.src);
         }).animate({opacity: 1}, 500);
     });
