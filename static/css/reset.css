@@ -158,6 +158,7 @@ a.navbar-brand {
     background-color: #ddd;
     border-radius: 0;
     padding-right: 35px;
+    display: none;
 }
 
 #searchBtn {
@@ -170,6 +171,7 @@ a.navbar-brand {
     border-image: none;
     background-image: none;
     box-shadow: none;
+    color: white;
 }
 
 #main {

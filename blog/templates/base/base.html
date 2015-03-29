@@ -40,7 +40,7 @@
                         <h3>Quietin</h3><h5>ready to sacrifice for the honor</h5>
 
                         <div id="header-img">
-                            <img class="desaturate" src="{{ STATIC_URL }}img/header.jpg">
+                            <img class="desaturate" src="{{ STATIC_URL }}img/header.jpg" width="1024" height="341">
                         </div>
                     </div>
                 </div>
@@ -103,68 +103,81 @@
 {% endblock %}
 
 <script type="text/javascript">
-    function grayscale(src) {
-        var supportsCanvas = !!document.createElement('canvas').getContext;
-        if (supportsCanvas) {
-            var canvas = document.createElement('canvas'),
-                    context = canvas.getContext('2d'),
-                    imageData, px, length, i = 0, gray,
-                    img = new Image();
+    {#    function grayscale(src) {#}
+    {#        var supportsCanvas = !!document.createElement('canvas').getContext;#}
+    {#        if (supportsCanvas) {#}
+    {#            var canvas = document.createElement('canvas'),#}
+    {#                    context = canvas.getContext('2d'),#}
+    {#                    imageData, px, length, i = 0, gray,#}
+    {#                    img = new Image();#}
+    {##}
+    {#            img.src = src;#}
+    {#            canvas.width = img.width;#}
+    {#            canvas.height = img.height;#}
+    {#            context.drawImage(img, 0, 0);#}
+    {##}
+    {#            imageData = context.getImageData(0, 0, canvas.width, canvas.height);#}
+    {#            px = imageData.data;#}
+    {#            length = px.length;#}
+    {##}
+    {#            for (; i < length; i += 4) {#}
+    {#                gray = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11;#}
+    {#                gray = px[i] * .5 + px[i + 1] * .55 + px[i + 2] * .1;#}
+    {#                px[i] = px[i + 1] = px[i + 2] = gray;#}
+    {#            }#}
+    {##}
+    {#            context.putImageData(imageData, 0, 0);#}
+    {#            return canvas.toDataURL();#}
+    {#        } else {#}
+    {#            return src;#}
+    {#        }#}
+    {#    }#}
 
-            img.src = src;
-            canvas.width = img.width;
-            canvas.height = img.height;
-            context.drawImage(img, 0, 0);
-
-            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            px = imageData.data;
-            length = px.length;
-
-            for (; i < length; i += 4) {
-                {#                gray = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11;#}
-                gray = px[i] * .5 + px[i + 1] * .55 + px[i + 2] * .1;
-                px[i] = px[i + 1] = px[i + 2] = gray;
-            }
-
-            context.putImageData(imageData, 0, 0);
-            return canvas.toDataURL();
-        } else {
-            return src;
-        }
-    }
-    $(window).load(function () {
-        $('.desaturate').each(function () {
-            $(this).wrap('<div style="display:inline-block;width:' + this.parentNode.offsetWidth + 'px;height:' + this.parentNode.offsetHeight + 'px;">')
-                    .clone().addClass('gotcolors').css({'position': 'absolute', 'opacity': 0}).insertBefore(this);
-            this.src = grayscale(this.src);
-        }).animate({opacity: 1}, 500);
-    });
 
     $(document).ready(function () {
         $("#searchBox")
                 .bind('focus', function () {
                     if (!this.hasOwnProperty('init_width')) {
                         this.init_width = $(this).css('width');
-                        this.bg_color = $(this).css('background-color');
                     }
                     $(this).css('background-color', '#fff').animate({width: 300}, 'fast');
                 })
                 .bind('blur', function () {
-                    if ($.trim($(this).val()) === '') {
-                        $(this).val('');
-                        $(this).animate({width: this.init_width}).css('background-color', this.bg_color);
+                    if (!$(this).next('button').is(':hover') && $.trim($(this).val()) === '') {
+                        $(this).val('').animate({width: this.init_width}).hide().next().css('color', '#fff');
                     }
                 });
 
-        $("#header-img").hover(
-                function () {
-                    $(this).find('.gotcolors').stop().animate({opacity: 1}, 200);
-                },
-                function () {
-                    $(this).find('.gotcolors').stop().animate({opacity: 0}, 500);
-                }
-        );
-    })
+
+        $("#header-img").hoverIntent({
+            over: function () {
+                $(this).find('.gotcolors').stop().animate({opacity: 1}, 2000);
+            },
+            out: function () {
+                /*  keep the img colorful */
+                {#                $(this).find('.gotcolors').stop().animate({opacity: 0}, 100);#}
+            },
+            sensitivity: 3
+        });
+
+        $("#searchBtn")
+                .bind('click', function (e) {
+                    if ($(this).prev('input').css('display') === 'none') {
+                        e.preventDefault();
+                        $(this).css('color', '#000').prev().show().focus();
+                    }
+                });
+    });
+
+
+    $(window).load(function () {
+        $('.desaturate').each(function () {
+            $(this).wrap('<div style="display:inline-block;width:' + this.parentNode.offsetWidth + 'px;height:' + this.parentNode.offsetHeight + 'px;">')
+                    .clone().addClass('gotcolors').css({'position': 'absolute', 'opacity': 0}).insertBefore(this);
+            // this.src = grayscale(this.src);
+            this.src = "{{ STATIC_URL }}img/header-fake.png"
+        }).animate({opacity: 1}, 500);
+    });
 
 </script>
 
