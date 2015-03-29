@@ -1,20 +1,12 @@
 # coding: utf8
 from django.db import models
 from base64 import b64encode, b64decode
+from django.db.models import Max
 
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return self.title
-
-
-class Tag(models.Model):
-    title = models.CharField(max_length=255)
+    is_fixed = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -25,7 +17,6 @@ class Tag(models.Model):
 
 class Article(models.Model):
     cate = models.ForeignKey(Category)
-    tag = models.ManyToManyField(Tag)
     title = models.CharField(max_length=255, blank=False)
     content = models.TextField(default='', blank=False)
     author = models.CharField(max_length=128, default='quietin', blank=False)
@@ -35,6 +26,7 @@ class Article(models.Model):
     is_reshipped = models.BooleanField(default=False, verbose_name=u'是否为转载')
     id_hash = models.CharField(max_length=128, db_index=True)
 
+    is_del = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
@@ -55,10 +47,7 @@ class Article(models.Model):
 
     @classmethod
     def get_new_article_hash_id(cls):
-        try:
-            max_id = cls.objects.defer('id').order_by('id')[0]
-        except IndexError:
-            max_id = 0
+        max_id = cls.objects.all().aggregate(Max('id'))['id__max'] or 0
         return cls.encrypt_id(max_id+1)
 
     # @classmethod

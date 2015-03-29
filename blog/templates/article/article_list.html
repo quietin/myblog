@@ -25,7 +25,7 @@
     <div id="articleBox">
         <ul class="list-group">
             {% for article in articles %}
-                <li class="list-group-item"><a href="{% url 'display_article' article.id %}" >{{ article.title }}</a>
+                <li class="list-group-item"><a href="{% url 'display_article' article.id_hash %}" >{{ article.title }}</a>
 
                     <div class="pull-right create_time">{{ article.created_at }}</div>
                 </li>

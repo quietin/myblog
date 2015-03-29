@@ -2,7 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
-from models import Article, Category, Tag
+from models import Article, Category
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -12,49 +12,30 @@ import re
 
 
 def home(request):
-    html = "<html><body>abcd</body></html>"
     return render(request, 'home.html')
-
-
-def base(request):
-    return render(request, 'base/base.html')
-
-
-def display_article(request, essay_pk):
-    try:
-        article = Article.objects.get(pk=essay_pk)
-        return render(request, 'article/article_single.html', {'article': article})
-    except Article.DoesNotExist:
-        pass
 
 
 def make_new_article_fake(request):
     id_hash = Article.get_new_article_hash_id()
-    print id_hash
     return HttpResponseRedirect(reverse("make_new_article", args=(str(id_hash),)))
 
 
 def make_new_article(request, new_id):
     if request.method == 'GET':
         cates = Category.objects.all()
-        tags = Tag.objects.all()
         return render(request, 'article/edit_page.html', {
             "new_id": new_id,
-            "tags": tags,
             "cates": cates
         })
     elif request.method == 'POST':
-        # param_list = ['title', 'content', 'publish', 'author', 'category', 'tags', ]
-        print 'new_id', new_id
         new_article = Article()
         for k, v in request.POST.iteritems():
             if hasattr(new_article, k):
                 setattr(new_article, k, v)
         new_article.id = Article.decrypt_id(new_id)
-        print new_article.__dict__
-        print new_article.__dict__['category']
+        new_article.id_hash = new_id
         new_article.save()
-        return HttpResponseRedirect(reverse('display_article', args=(new_article.id,)))
+        return HttpResponseRedirect(reverse('display_article', args=(new_article.id_hash,)))
 
 
 def add_new_category(request):
@@ -66,6 +47,17 @@ def add_new_category(request):
         cate.save()
         response = {'status': 'success', 'data': {'id': cate.id, 'title': cate.title}}
     return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def display_article(request, hash_pk):
+    try:
+        essay_pk = Article.decrypt_id(hash_pk)
+        article = Article.objects.get(pk=essay_pk)
+        # article = Article.objects.get(pk=hash_pk)
+
+        return render(request, 'article/article_single.html', {'article': article})
+    except Article.DoesNotExist:
+        pass
 
 
 def display_all_articles(request):
