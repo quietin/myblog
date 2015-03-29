@@ -1,0 +1,211 @@
+::selection {
+    background: #ff9966;
+    color: #ffffff;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body, div {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f1f1f1;
+    font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+
+footer {
+    padding: 10px 0 0 0;
+    width: 100%;
+    margin: 0;
+    height: auto;
+    background: #222222;
+    color: #fff;
+    overflow: auto;
+}
+
+h4, h5, h6 {
+    font-weight: normal;
+}
+
+ul {
+    /*list-style-type: none;*/
+}
+
+li [class^="icon-"] {
+    display: inline-block;
+    width: 1.25em;
+    text-align: center;
+}
+
+a {
+    color: #777;
+}
+
+a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+footer > p {
+    margin: 0 0 10px 10px;
+    font-size: 13px;
+}
+
+.navbar-inverse {
+    /*background-image: linear-gradient(to bottom,#993 0,#996 100%);*/
+    border-color: #996;
+}
+
+.container {
+    max-width: 1024px;
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.siderbarBox {
+    margin: 0 0 20px 0;
+}
+
+.sidebarBox ul {
+    padding: 0;
+}
+
+.sidebarBox li {
+    list-style-type: none;
+    cursor: pointer;
+    line-height: 22px;
+    height: 22px;
+    padding-left: 8px;
+}
+
+.sidebarBox > ul > li:hover {
+    background-color: #fbf4f4;
+    color: #000;
+    /*background-color: #ddd;*/
+}
+
+.sidebarBox li a {
+    font-weight: bold;
+    font-size: 12px;
+    display: block;
+}
+
+.sidebarBox li [class^="icon-"], .sidebarBox li [class*=" icon-"] {
+    width: 24px;
+    font-size: 14px;
+    vertical-align: text-bottom;
+}
+
+a.navbar-brand {
+    padding: 8px 8px 0 0;
+    margin: 0 !important;
+}
+
+#content {
+    /*padding: 50px 0 10px 0;*/
+    margin: 30px auto;
+    padding: 10px 0 0 0;
+    /*background-color: #fafafa;*/
+    background-color: #fff;
+    min-height: 800px;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+}
+
+#top-content {
+    padding: 0;
+}
+
+#header-img {
+    /*width: 1050px;*/
+    /*overflow: auto;*/
+}
+
+#desc-col {
+    margin: 10px 0 20px;
+}
+
+#desc-col h3, h5 {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#sidebar {
+    float: left;
+    width: 245px;
+    margin: 0 5px;
+}
+
+#searchForm {
+    position: relative;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+#searchBox {
+    background-color: #ddd;
+    border-radius: 0;
+    padding-right: 35px;
+}
+
+#searchBtn {
+    position: absolute;
+    border: none;
+    background-color: inherit;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+    border-image: none;
+    background-image: none;
+    box-shadow: none;
+}
+
+#main {
+    padding: 10px 0 20px;
+    min-height: 340px;
+}
+
+/* below are prepared for the div article block */
+#article {
+    padding-left: 0;
+    padding-right: 0;
+    width: 750px;
+    margin: 0 5px 0 10px;
+    float: left;
+}
+
+#main h4 h5 h6 {
+    font-weight: bold;
+}
+
+#header-img > div {
+    width: 100%;
+}
+
+#header-img img {
+    overflow-x: hidden;
+    margin: 0 auto;
+    width: 100%;
+}
+/*img.desaturate{*/
+    /*filter: grayscale(75%); *//* Current draft standard */
+    /*-webkit-filter: grayscale(75%); *//* New WebKit */
+    /*-moz-filter: grayscale(75%);*/
+    /*-ms-filter: grayscale(75%); */
+    /*-o-filter: grayscale(75%); *//* Not yet supported in Gecko, Opera or IE *//* */
+    /*filter: url(resources.svg#desaturate); *//* Gecko */
+    /*filter: gray; *//* IE */
+    /*-webkit-filter: grayscale(0.75); *//* Old WebKit */
+/*}*/

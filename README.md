@@ -1,5 +1,5 @@
 myblog
 ======
 
-my own blog, all code is wrote by me.
+My own blog, all code will be wrote by me.  aaaa
 20141229

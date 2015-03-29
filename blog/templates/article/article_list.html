@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% block css %}
+
+    <style type="text/css">
+        #articleBox {
+            margin: 10px 60px;
+        }
+
+        #articleBox a {
+            color: #333;
+        }
+
+        #articleBox li a:hover {
+            color: #4183c4;
+        }
+        .create_time {
+            color: #777;
+        }
+
+    </style>
+{% endblock %}
+
+{% block main_content %}
+    <div id="articleBox">
+        <ul class="list-group">
+            {% for article in articles %}
+                <li class="list-group-item"><a href="{% url 'display_article' article.id_hash %}" >{{ article.title }}</a>
+
+                    <div class="pull-right create_time">{{ article.created_at }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
