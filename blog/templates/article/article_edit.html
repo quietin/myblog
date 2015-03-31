@@ -1,0 +1,252 @@
+{% extends 'templates/base/base.html' %}
+{% block css_file %}
+    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-markdown.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/editor/editormd.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        .checkbox input[type=checkbox] {
+            position: inherit;
+            margin-left: 0;
+        }
+
+        .desc_text {
+            display: inline-block;
+            text-align: right;
+            width: 65px;
+        }
+
+        div#wrap {
+            margin: 5px 10px;
+        }
+
+        .piece {
+            margin-top: 10px;
+        }
+
+        .piece .alert-info {
+            display: inline-block;
+            margin: 0;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .piece i {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .piece select {
+            display: inline-block;
+            width: auto;
+        }
+
+        .icon-func {
+            cursor: pointer;
+        }
+
+        #add_cate_block, #add_tag_block {
+            display: none;
+        }
+
+    </style>
+{% endblock %}
+
+{% block main_content %}
+    <div id="wrap">
+        <form method="post" action="{% url "make_new_article" new_id %}" id="submitForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" name="title" type="text" placeholder="Title?">
+            </div>
+
+            <div id="editor">
+
+            </div>
+
+            <div id="editor_box">
+                <label for="cate_id"></label>
+
+                <div class="piece"><span class="desc_text">目录分类:</span>{% if not cates %}
+                {% else %}
+                    <select class="form-control" id="cate_select" name="cate_id">
+                        {% for cate in cates %}
+                            <option value="{{ cate.id }}">{{ cate.title }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+                    <i class="icon-plus icon-func" id="add_cate" title="添加分类"></i>
+
+                    <div id="add_cate_block">
+                        <label for="add_cate_input"></label>
+                        <input class="add_cate_input" id="add_cate_input"><i
+                            class="icon-ok icon-func" title="确定" id="post_cate"></i>
+                        <i class="icon-remove icon-func" title="取消" id="cancel_cate"></i>
+                    </div>
+
+                </div>
+
+                <label class="checkbox">
+                    <input name="publish" type="checkbox"> Publish
+                </label>
+            </div>
+            <hr>
+            <button type="submit" class="btn" id="submitBtn">Submit</button>
+        </form>
+
+    </div>
+
+
+{% endblock %}
+
+
+{% block js_file %}
+    {#    <script src="{{ STATIC_URL }}bootstrap/js/markdown.js" type="text/javascript"></script>#}
+{#    <script src="{{ STATIC_URL }}js/marked.js" type="text/javascript"></script>#}
+{#    <script src="{{ STATIC_URL }}js/highlight.pack.js" type="text/javascript"></script>#}
+{#    <script src="{{ STATIC_URL }}bootstrap/js/to-markdown.js" type="text/javascript"></script>#}
+{#    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-markdown.js" type="text/javascript"></script>#}
+{#    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-markdown.zh.js" type="text/javascript"></script>#}
+        <script src="{{ STATIC_URL }}js/editor/editormd.min.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+
+        $(function () {
+
+
+            /*
+             // or
+             var editor = editormd({
+             id   : "editormd",
+             path : "../lib/"
+             });
+             */
+        });
+
+        $(document).ready(function () {
+{#            $("#contentEdit").markdown({#}
+{#                iconlibrary: 'glyph',#}
+{#                language: 'zh',#}
+{#                height: 500,#}
+{#                resize: 'vertical',#}
+{#                savable: true#}
+{#            });#}
+            var editor_name = "editor";
+            var editor = editormd(editor_name, {
+                path: "{{ STATIC_URL }}js/editor/lib/",
+                width: "100%",
+                height: 640,
+                htmlDecode : true,
+                imageUpload: false,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "./php/upload.php"
+            });
+
+            //scroll to the bottom for the easy edit
+            $(window).scrollTop($(document).height() - $(window).height());
+
+
+            var add_cate_btn = $("#add_cate");
+            var post_cate_btn = $("#post_cate");
+            var new_cate_input = $("#add_cate_input");
+            var add_cate_div = $("#add_cate_block");
+            add_cate_btn.bind('click', function () {
+                add_cate_div.css('display', 'inline-block');
+                $(this).hide();
+            });
+
+            var hide_cate_input = function () {
+                new_cate_input.val('');
+                add_cate_div.hide();
+                add_cate_btn.show();
+            };
+
+            var show_mes = function (mes, conf) {
+                var default_conf = {'title': mes, 'trigger': 'manual'};
+                if (conf) {
+                    default_conf = $.extend(default_conf, conf);
+                }
+                this.children('option:last').prop('selected', true).end()
+                        .tooltip(default_conf).tooltip('show');
+                var that = this;
+                setTimeout(function () {
+                    that.tooltip('hide').tooltip('destroy');
+                }, 1200);
+            };
+            post_cate_btn.bind('click', function () {
+
+
+                if ($.trim(new_cate_input.val()) === '') {
+                    show_mes.call(new_cate_input, '目录名不可为空');
+                    return false;
+                }
+                $.ajax({
+                    type: 'post',
+                    url: "{% url "add_new_category" %}",
+                    dataType: 'json',
+                    data: {
+                        "add_new_cate": $.trim(new_cate_input.val())
+                    },
+                    success: function (res) {
+                        var cate_sel = $("#cate_select");
+                        if (res.status === 'success') {
+                            var option_data = '<option value=' + res.data.id + '>' + res.data.title + '</option';
+                            if (cate_sel.length === 0) {
+                                $('<select class="form-control" id="cate_select">')
+                                        .append(option_data)
+                                        .insertBefore(add_cate_btn);
+                                cate_sel = $("#cate_select");  // 必须重新绑定DOM
+                            } else {
+                                cate_sel.append(option_data);
+                            }
+                            show_mes.call(cate_sel, 'add success!');
+                            hide_cate_input();
+                        } else if (res.status === 'error') {
+                            show_mes.call(cate_sel, res.mes);
+                        }
+                    }
+                })
+            });
+
+            $("#cancel_cate").bind('click', function () {
+                hide_cate_input();
+            });
+
+            $("#submitForm").bind('submit', function () {
+
+                var checkEmpty = function () {
+                    if (this.val() === '') {
+                        show_mes.call(this, '不能为空', {'placement': 'left'});
+                        this.focus();
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
+                var submit_flag = true;
+                var field_arr = ['title', 'content'];
+                for (var i = 0; i < field_arr.length; i++) {
+                    var check_res = checkEmpty.call($('[name=' + field_arr[i] + ']'));
+                    if (check_res === false) {
+                        submit_flag = false;
+                        break;
+                    }
+                }
+                if (submit_flag) {
+                    var input = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "content").val(editor.getMarkdown());
+                    $(this).append($(input)).find("[name=" + editor_name + "-markdown-doc]").stop().removeAttr('name');
+                }
+                return submit_flag;
+            });
+        })
+
+    </script>
+{% endblock %}

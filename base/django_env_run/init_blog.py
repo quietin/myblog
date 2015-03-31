@@ -18,8 +18,14 @@ def init_category_action(delete_all=False):
     raw_category.save()
 
 
+def delete_all_articles():
+    Article.objects.all().delete()
+
+
 def init_everything():
     init_category_action(True)
+
+    delete_all_articles()
 
 
 if __name__ == '__main__':

@@ -20,10 +20,12 @@ def make_new_article_fake(request):
     return HttpResponseRedirect(reverse("make_new_article", args=(str(id_hash),)))
 
 
+@login_required
 def make_new_article(request, new_id):
     if request.method == 'GET':
         cates = Category.objects.all()
-        return render(request, 'article/edit_page.html', {
+        # return render(request, 'article/edit_page.html', {
+        return render(request, 'article/article_edit.html', {
             "new_id": new_id,
             "cates": cates
         })

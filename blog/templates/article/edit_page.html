@@ -2,6 +2,7 @@
 {% block css_file %}
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-markdown.min.css" rel="stylesheet">
+
 {% endblock %}
 
 {% block css %}
@@ -22,7 +23,7 @@
         }
 
         .piece {
-        {#            display: inline-block;#} margin-top: 10px;
+            margin-top: 10px;
         }
 
         .piece .alert-info {
@@ -63,7 +64,6 @@
             <div class="md-editor" id="1426424629682">
 
             <textarea name="content" id="contentEdit"
-                    {#                      data-provide="markdown"#}
                       rows="15" class="md-input"
                       style="resize: none; display: block;">### Hello there
 How are you?
@@ -84,7 +84,6 @@ Enjoy!</textarea>
             </div>
             <div id="editor_box">
                 <label for="cate_id"></label>
-{#                <input class="form-control" id="cate_id" name="cate_id" type="hidden">#}
 
                 <div class="piece"><span class="desc_text">目录分类:</span>{% if not cates %}
                 {% else %}
@@ -214,6 +213,7 @@ Enjoy!</textarea>
                 var checkEmpty = function () {
                     if (this.val() === '') {
                         show_mes.call(this, '不能为空', {'placement': 'left'});
+                        this.focus();
                         return false;
                     } else {
                         return true;
