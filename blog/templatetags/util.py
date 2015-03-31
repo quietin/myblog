@@ -15,9 +15,13 @@ def inclusion(model_name):
 
 @register.assignment_tag
 def categories():
-    normal_categories = Category.objects.filter(is_fixed=False)
-    fixed_category = Category.objects.get(is_fixed=True)
-    return {
-        'normal_cate': normal_categories,
-        'fixed_cate': fixed_category
-    }
+    try:
+        normal_categories = Category.objects.filter(is_fixed=False)
+        fixed_category = Category.objects.get(is_fixed=True)
+    except Category.DoesNotExist:
+        return {}
+    else:
+        return {
+            'normal_cate': normal_categories,
+            'fixed_cate': fixed_category
+        }

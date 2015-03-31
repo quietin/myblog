@@ -12,8 +12,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">分类
                             <span class="caret"></span></a>
+                        {% categories as categories %}
+                            {% if categories %}
                         <ul class="dropdown-menu" role="menu">
-                            {% categories as categories %}
+
                             {% if categories.normal_cate %}
                                 {% for cate in categories.normal_cate %}
                                     <li><a href="#">{{ cate.title }}</a></li>
@@ -22,6 +24,7 @@
                             {% endif %}
                             <li><a href="#">{{ categories.fixed_cate.title }}</a></li>
                         </ul>
+                            {% endif %}
                     </li>
                     <li><a href="{% url 'make_new_article_id' %}">写文章</a></li>
                 </ul>
