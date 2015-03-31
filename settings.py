@@ -110,6 +110,7 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'statics')
 
 # TEMPLATE_DEBUG = True
 TEMPLATE_CONTEXT_PROCESSORS = (
