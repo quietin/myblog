@@ -14,6 +14,7 @@
         #articleBox li a:hover {
             color: #4183c4;
         }
+
         .create_time {
             color: #777;
         }
@@ -25,9 +26,10 @@
     <div id="articleBox">
         <ul class="list-group">
             {% for article in articles %}
-                <li class="list-group-item"><a href="{% url 'display_article' article.id_hash %}" >{{ article.title }}</a>
+                <li class="list-group-item"><a
+                        href="{% url 'display_article' article.id_hash %}">{{ article.title }}</a>
 
-                    <div class="pull-right create_time">{{ article.created_at }}</div>
+                    <div class="pull-right create_time">{{ article.created_at|date:'o-m-d' }}</div>
                 </li>
             {% endfor %}
         </ul>

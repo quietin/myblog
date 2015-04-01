@@ -29,7 +29,7 @@ def make_new_article(request, new_id):
             "new_id": new_id,
             "cates": cates
         })
-    elif request.method == 'POST':
+    else:
         new_article = Article()
         for k, v in request.POST.iteritems():
             if hasattr(new_article, k):
@@ -55,19 +55,27 @@ def display_article(request, hash_pk):
     try:
         essay_pk = Article.decrypt_id(hash_pk)
         article = Article.objects.get(pk=essay_pk)
-        # article = Article.objects.get(pk=hash_pk)
-
+        article.cate_name = Category.objects.get(id=article.cate_id)
         return render(request, 'article/article_single.html', {'article': article})
-    except Article.DoesNotExist:
+    except Article.DoesNotExist, Category.DoesNotExist:
         pass
 
 
 def display_all_articles(request):
     articles = Article.objects.all()
-    for article in articles:
-        setattr(article, 'created_at', utc_to_local(article.created_at).strftime("%Y.%m.%d  %H:%M"))
+    # for article in articles:
+    #     setattr(article, 'created_at', utc_to_local(article.created_at).strftime("%Y.%m.%d  %H:%M"))
     return render(request, 'article/article_list.html', {'articles': articles})
 
+
+def update_article(request, hash_pk):
+    try:
+        essay_pk = Article.decrypt_id(hash_pk)
+        article = Article.objects.get(pk=essay_pk)
+        cates = Category.objects.all()
+        return render(request, 'article/article_update.html', {'article': article, 'cates': cates})
+    except Article.DoesNotExist:
+        pass
 
 # def display_article_by_gfm(request, essay_pk):
 # try:

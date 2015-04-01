@@ -26,6 +26,7 @@ class Article(models.Model):
     is_reshipped = models.BooleanField(default=False, verbose_name=u'是否为转载')
     id_hash = models.CharField(max_length=128, db_index=True)
 
+    is_private = models.BooleanField(default=False)
     is_del = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
