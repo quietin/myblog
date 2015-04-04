@@ -12,16 +12,27 @@
         .markdown-body {
             display: none;
         }
+
+        #article {
+            width: 100%;
+            overflow-y: auto;
+        }
     </style>
+    {% block up_css %}
+        {% endblock %}
 {% endblock %}
 
 {% block article %}
-    <div id="article" class="markdown-body">
-        {% block article_content %}
+    <div id="articleBox">
+        {% block article_head %}
 
         {% endblock %}
-    </div>
+        <div id="article" class="markdown-body">
+            {% block article_content %}
 
+            {% endblock %}
+        </div>
+    </div>
 {% endblock %}
 
 

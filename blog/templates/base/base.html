@@ -50,7 +50,7 @@
                 {% block main_content %}
 
                     {% block article %}
-                        <div id="article">
+                        <div id="articleBox">
                             {% block article_content %}
 
                             {% endblock %}
@@ -148,21 +148,23 @@
                     }
                 });
 
-
-        $("#header-img").hoverIntent({
-            over: function () {
-                $(this).find('.gotcolors').stop().animate({opacity: 1}, 2000);
-            },
-            out: function () {
-                /*  keep the img colorful */
-                {#                $(this).find('.gotcolors').stop().animate({opacity: 0}, 100);#}
-            },
-            sensitivity: 3
-        });
+        if (window.location.pathname === '/') {
+            $("#header-img").hoverIntent({
+                over: function () {
+                    $(this).find('.gotcolors').stop().animate({opacity: 1}, 2000);
+                },
+                out: function () {
+                    /*  keep the img colorful */
+                    {#                $(this).find('.gotcolors').stop().animate({opacity: 0}, 100);#}
+                },
+                sensitivity: 3
+            });
+        }
 
         $("#searchBtn")
                 .bind('click', function (e) {
-                    if ($(this).prev('input').css('display') === 'none') {
+                    var prev = $(this).prev('input');
+                    if (prev.css('display') === 'none' || prev.val() === '') {
                         e.preventDefault();
                         $(this).css('color', '#000').prev().show().focus();
                     }

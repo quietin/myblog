@@ -13,5 +13,6 @@ urlpatterns = patterns('',
                        url(r'^signout/$', 'django.contrib.auth.views.logout_then_login', name="sign_out"),
 
                        # default
-                       url(r'^$', view='blog.views.home', name='blog_index'),
+                       url(r'^.*$', view='blog.views.home', name='blog_index'),
+
 )

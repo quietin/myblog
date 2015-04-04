@@ -1,0 +1,74 @@
+{% extends "article/article_edit.html" %}
+
+{% block main_content %}
+    <div id="wrap">
+        <form method="post" action="{% url "update_article" article.id_hash %}" id="submitForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" name="title" type="text" placeholder="标题" value="{{ article.title }}">
+            </div>
+
+            <div id="editor">
+
+            </div>
+
+            <div id="editor_box">
+                <label for="cate_id"></label>
+
+                <div class="piece"><span class="desc_text">目录分类:</span>{% if not cates %}
+                {% else %}
+                    <label for="cate_select"></label>
+                    <select class="form-control" id="cate_select" name="cate_id">
+                        {% for cate in cates %}
+                            <option value="{{ cate.id }}"
+                                    {% if cate.id == article.cate_id %}selected="selected"{% endif %}>
+                                {{ cate.title }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+                    <i class="icon-plus icon-func" id="add_cate" title="添加分类"></i>
+
+                    <div id="add_cate_block">
+                        <label for="add_cate_input"></label>
+                        <input class="add_cate_input" id="add_cate_input"><i
+                            class="icon-ok icon-func" title="确定" id="post_cate"></i>
+                        <i class="icon-remove icon-func" title="取消" id="cancel_cate"></i>
+                    </div>
+
+                </div>
+
+                <div class="piece">
+                    <span class="desc_text">状态:</span>
+                    <label for="perm"></label>
+                    <select class="form-control" id="perm" name="is_private">
+                        {% if article.is_private %}
+                            <option value="1">私密</option>
+                            <option value="0">公开</option>
+                        {% else %}
+                            <option value="0">公开</option>
+                            <option value="1">私密</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <button type="submit" class="btn" id="submitBtn">Submit</button>
+        </form>
+
+    </div>
+
+
+{% endblock %}
+
+
+{% block for_modify_js %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+{#            console.log("{{ article.content }}")#}
+            $(".CodeMirror-code").html($({{ article.content|safe }}));
+{#            $(".CodeMirror-code").text("{{ article.content }}");#}
+            $("text[name=editor-markdown-doc]").text({{ article.content }});
+
+        })
+    </script>
+{% endblock %}

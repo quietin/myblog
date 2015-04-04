@@ -1,8 +1,68 @@
 {% extends "article/base_of_article.html" %}
 
+
+{% block up_css %}
+
+    <style type="text/css">
+        h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .title_head {
+            position: relative;
+        }
+
+        .title_head > a.btn-sm {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .item {
+            color: #777;
+            margin-right: 3px;
+        }
+
+        .desc_item {
+            display: inline-block;
+            margin-left: 20px;
+            float: right;
+        }
+
+        #desc_tag {
+            margin: 10px 0 15px;
+            overflow: auto;
+        }
+        #desc_tag a {
+            color: #4183c4;
+            cursor: pointer;
+        }
+    </style>
+
+{% endblock %}
+
+{% block article_head %}
+
+    <div class="title_head">
+        <h2> {{ article.title }}</h2>
+        {% if user.is_authenticated %}
+            <a class="btn btn-sm btn-default" href="{% url "update_article" article.id_hash %}" role="button">
+                <i class="icon-edit"></i>编辑</a>
+        {% endif %}
+        <div id="desc_tag">
+            <div class="desc_item">
+                <span class="item">目录:</span><a href="#">{{ article.cate_name }}</a>
+            </div>
+            <div class="desc_item">
+                <span class="item">时间:</span>{{ article.updated_at|date:'o-m-d l' }}</div>
+
+        </div>
+    </div>
+
+{% endblock %}
 {% block article_content %}
     {{ article.content }}
 {% endblock %}
-
 
 
